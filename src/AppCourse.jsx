@@ -31,6 +31,19 @@ function App() {
       link: 'https://inf.run/YkAN',
     }
   ]);
+  const handleFavoriteChange = (id, isFavorite) => {
+    const newItems = items.map((item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          isFavorite
+        }
+      }
+      return item;
+    }))
+
+    setCourseItems(newItems);
+  }
 
   const favoriteList = items.filter(item => item.isFavorite); // 콜백 함수에서 true인 해당 요소를 배열에 넣음.
 
@@ -38,7 +51,7 @@ function App() {
     <>
       <main style={{flexDirection: "column", gap:"1rem"}}>
         <CourseForm />
-        <Card title = "강의 목록" items={items}/>
+        <Card title = "강의 목록" items={items} onFavorite={handleFavoriteChange}/>
         {/* <Card title = "찜한 목록" items={favoriteList}/> */}
       </main>
     </>

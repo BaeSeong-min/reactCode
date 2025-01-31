@@ -18,17 +18,10 @@ function LinkIconBtn( {link} ) {
   );
 }
 
-export default function Article({title, description, thumbnail, isFavorite, link}) {
-  const [favorite, setFavorite] = useState(isFavorite);
-
-  const handleHeartClick = () => {
-    setFavorite(!favorite);
-  }
-
+export default function Article({onFavorite, id, title, description, thumbnail, isFavorite, link}) {
   function handleFavorite(e) {
     e.stopPropagation(); // 이벤트 전파를 막는다. 
-    alert(favorite ? "좋아요" : "모르겠어요");
-    handleHeartClick();
+    onFavorite(id, !isFavorite);
   }
 
   function handleItemClick() {
@@ -43,7 +36,7 @@ export default function Article({title, description, thumbnail, isFavorite, link
         <div className="course__description">{ description }</div>
       </div>
       <div className="course_icon">
-        <HeartIconBtn onHeartClick={handleFavorite} isFavorite={favorite}/>
+        <HeartIconBtn onHeartClick={handleFavorite} isFavorite={isFavorite}/>
         {link && <LinkIconBtn link={link}/>}
       </div>
     </article>
