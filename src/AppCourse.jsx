@@ -1,10 +1,11 @@
 import './AppCourse.css';
 import CourseForm from './components/CourseForm.jsx';
 import Card from './components/Card.jsx';
+import { useState } from 'react';
 
 function App() {
   // state 적용 및 좋아요 클릭 시 해당 상태 변경. 잘 작동하면 useState를  useImmer로 변경하기.
-  const items = [
+  const [items, setCourseItems] = useState([
     {
       id: 0,
       title: '입문자를 위한, HTML&CSS 웹 개발 입문',
@@ -29,8 +30,7 @@ function App() {
       isFavorite: true,
       link: 'https://inf.run/YkAN',
     }
-  ]
-
+  ]);
 
   const favoriteList = items.filter(item => item.isFavorite); // 콜백 함수에서 true인 해당 요소를 배열에 넣음.
 

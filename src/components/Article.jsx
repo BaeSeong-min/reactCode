@@ -1,10 +1,12 @@
+import { useState } from "react";
+
 function HeartIconBtn( {onHeartClick, isFavorite = false} ) {
 
-    return (
-      <button className="btn" onClick={onHeartClick}>
-        <img className="btn__img" src={isFavorite ? "/img/heart-fill-icon.svg" :  "/img/heart-icon.svg"}/>
-      </button>
-    );
+  return (
+    <button className="btn" onClick={onHeartClick}>
+      <img className="btn__img" src={isFavorite ? "/img/heart-fill-icon.svg" :  "/img/heart-icon.svg"}/>
+    </button>
+  );
 }
 
 function LinkIconBtn( {link} ) {
@@ -17,10 +19,16 @@ function LinkIconBtn( {link} ) {
 }
 
 export default function Article({title, description, thumbnail, isFavorite, link}) {
+  const [favorite, setFavorite] = useState(isFavorite);
+
+  const handleHeartClick = () => {
+    setFavorite(!favorite);
+  }
 
   function handleFavorite(e) {
     e.stopPropagation(); // 이벤트 전파를 막는다. 
-    alert(isFavorite ? "좋아요" : "모르겠어요");
+    alert(favorite ? "좋아요" : "모르겠어요");
+    handleHeartClick();
   }
 
   function handleItemClick() {
@@ -35,7 +43,7 @@ export default function Article({title, description, thumbnail, isFavorite, link
         <div className="course__description">{ description }</div>
       </div>
       <div className="course_icon">
-        <HeartIconBtn onHeartClick={handleFavorite} isFavorite={isFavorite}/>
+        <HeartIconBtn onHeartClick={handleFavorite} isFavorite={favorite}/>
         {link && <LinkIconBtn link={link}/>}
       </div>
     </article>
