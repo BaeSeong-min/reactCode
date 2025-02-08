@@ -63,6 +63,25 @@ function Form() {
     }
   }, []); // 마운트 된 후, 딱 한 번만 콜백함수 호출하려면 두 번째 인자로 빈 배열 주기.
 
+  const [isChanged, setIsChanged] = useState(false);
+  const prevForm = useRef(null);
+  
+  useEffect(() => {
+    // server로부터 데이터 fetch 했다고 가정. 외부 API를 fetch할 때 useEffect 사용!
+    prevForm.current = { ...form};
+  }, []);
+
+  useEffect(() => {
+    
+    const hasChanged = (
+      prevForm.current.title !== form.title ||
+      prevForm.current.content !== form.content ||
+      prevForm.current.author !== form.author 
+    );
+
+    setIsChanged(hasChanged);
+  }, [form]);
+
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
@@ -73,7 +92,7 @@ function Form() {
         <hr />
         <textarea ref={contentTextareaRef} name="content" placeholder="내용" value={form.content} onChange={handleForm}/>
         <hr />
-        <button>전송</button> 
+        <button disabled={!isChanged}>전송</button> 
       </fieldset>
     </form>
   )

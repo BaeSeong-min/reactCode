@@ -1,7 +1,8 @@
-import './App.css';
+// import './App.css';
+
 import TodoList from './components/todo/TodoList' 
 import AddTodo from './components/todo/AddTodo';
-import { TodoContext, TodoDispatchContext, TodoProvider } from './context/TodoContext';
+import { TodoProvider } from './context/TodoContext';
 
 function AppTodo(props) {
 
